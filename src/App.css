@@ -73,14 +73,14 @@
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
   width: 445px;
-  padding: 26px 34px;
+  padding: 25px 34px;
 
   margin-bottom: 20px;
 }
 
 .todo-item.focused {
-  width: 489px;
-  height: 238px;
+  width: 490px;
+  height: 250px;
   flex-shrink: 0;
 }
 
@@ -139,7 +139,7 @@
 
 .todo-item .focused-icon {
   position: absolute;
-  top: calc(120px - 80px);
+  top: calc(125px - 80px);
 }
 
 .focused-icon.trash {
