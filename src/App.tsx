@@ -42,6 +42,11 @@ function App() {
     setFocusedItem(id);
   }, []);
 
+  const handleDeleteItem = useCallback((id: string) => {
+    console.log('delete', id);
+    setTodoList((l) => l.filter((i) => i.id !== id));
+  }, []);
+
   return (
     <div
       className={`flex flex-col justify-start items-center tailwind/gray/50 container ${
@@ -60,6 +65,7 @@ function App() {
             focused={focusedItem === item.id}
             key={index}
             onClick={handleClickItem}
+            onDelete={handleDeleteItem}
           />
         ))}
       </div>

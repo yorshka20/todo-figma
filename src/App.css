@@ -69,6 +69,8 @@
 }
 
 .todo-item {
+  position: relative;
+
   border-radius: 8px;
   background: var(--tailwind-white, #fff);
 
@@ -138,6 +140,19 @@
   -webkit-line-clamp: 2;
 
   margin-bottom: 12px;
+}
+
+.todo-item .focused-icon {
+  position: absolute;
+  top: calc(120px - 80px);
+}
+
+.focused-icon.trash {
+  /* -(screen width - todo-item width - icon width + gap)/2 */
+  left: calc(220px + 65px + 40px - 50vw);
+}
+.focused-icon.done {
+  right: calc(220px + 65px + 40px - 50vw);
 }
 
 .tag-list .tag-item.priority {
