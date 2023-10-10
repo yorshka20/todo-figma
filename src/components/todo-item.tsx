@@ -15,7 +15,7 @@ function Component({ id, title, content, priority, tags }: Props) {
   return (
     <div
       onClick={handleClick}
-      className="flex flex-col justify-start items-start todo-item"
+      className="flex flex-col w-full justify-start items-start todo-item"
     >
       <h2>{title}</h2>
       <p>{content}</p>

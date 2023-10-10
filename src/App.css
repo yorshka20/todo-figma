@@ -6,8 +6,22 @@
   background: var(--tailwind-gray-50, #f9fafb);
 
   font-size: 14px;
+}
 
-  /* box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05); */
+.container .shadow-mask {
+  position: fixed;
+  left: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(249, 250, 251, 0) 0%,
+    #f9fafb 95.69%
+  );
+  height: 80px;
+
+  pointer-events: none;
+
+  z-index: 10;
 }
 
 .container .add-icon {
@@ -16,6 +30,8 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+
+  z-index: 20;
 }
 
 .todo-item {
@@ -116,6 +132,8 @@
 
   /* shadow-sm */
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+
+  z-index: 20;
 }
 
 .float-menu input,
@@ -164,7 +182,7 @@
   margin-right: 15px;
 }
 
-.priority-button .selected {
+.priority-button.selected {
   color: var(--tailwind-rose-600, #e11d48);
   border-color: var(--tailwind-rose-600);
   background: var(--tailwind-red-50, #fef2f2);

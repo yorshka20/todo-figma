@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
+import { generateId } from '../helper';
 import type { PriorityText, TodoListItem } from '../interface';
 import { EditIconGroup } from './edit-icon-group';
 import { PriorityButton } from './priority-button';
@@ -7,24 +8,33 @@ import { PriorityButton } from './priority-button';
 interface Props {
   onConfirm: (tag: TodoListItem | undefined) => void;
   onCancel: () => void;
-  show: boolean;
 }
 
 const priorityList: PriorityText[] = ['1', '2', '3', '4'];
 
-function Component({ onConfirm, onCancel, show }: Props) {
-  const [item] = useState<TodoListItem>();
+const emptyItem: TodoListItem = {
+  id: '',
+  title: '',
+  content: '',
+  tags: [],
+  priority: 'P4',
+};
+
+function Component({ onConfirm, onCancel }: Props) {
+  const [item, setItem] = useState<TodoListItem>(emptyItem);
 
   const [activePriority, setActivePriority] = useState<PriorityText | ''>('');
 
-  const handleClickPriority = (id: PriorityText) => {
-    setActivePriority(id);
-  };
+  const handleClickPriority = useCallback((id: PriorityText) => {
+    setActivePriority((o) => (o === id ? '' : id));
+  }, []);
 
   const handleConfirm = () => {
-    //
-
-    onConfirm(item);
+    onConfirm({
+      ...item,
+      id: generateId(), // generate random string as id
+      priority: `P${activePriority}` as TodoListItem['priority'],
+    });
   };
 
   const handleCancel = () => {
@@ -33,26 +43,21 @@ function Component({ onConfirm, onCancel, show }: Props) {
   };
 
   const handleContentChange = (
-    type: string,
+    type: 'content' | 'title' | 'tags',
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    console.log(e.target.value);
-    switch (type) {
-      case 'input':
-        break;
-      case 'content':
-        break;
-      case 'tag':
-        break;
-
-      default:
-        break;
+    const data = (item && { ...item }) || ({} as TodoListItem);
+    const { value } = e.target;
+    console.log(value);
+    if (type === 'tags') {
+      const tags = value.split(',');
+      data[type] = tags;
+    } else {
+      data[type] = value;
     }
-  };
 
-  if (!show) {
-    return <></>;
-  }
+    setItem(data);
+  };
 
   return (
     <div className="flex flex-col w-full float-menu-container">
@@ -60,14 +65,17 @@ function Component({ onConfirm, onCancel, show }: Props) {
         <input
           onChange={(e) => handleContentChange('title', e)}
           className="w-full title"
+          placeholder="please input title..."
         />
         <textarea
           onChange={(e) => handleContentChange('content', e)}
           className="w-full content"
+          placeholder="please input content..."
         />
         <input
-          onChange={(e) => handleContentChange('tag', e)}
+          onChange={(e) => handleContentChange('tags', e)}
           className="w-full tag-input"
+          placeholder="please input tags..."
         />
         <div className="flex flex-row justify-start items-center priority-buttons">
           {priorityList.map((p) => (

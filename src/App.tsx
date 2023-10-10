@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import { AddIcon } from './components/add-icon';
 import { FloatMenu } from './components/float-menu';
+import { ShadowMask } from './components/shadow-mask';
 import { TodoItem } from './components/todo-item';
 import type { TodoListItem } from './interface';
 import { mockData } from './mock';
@@ -22,8 +23,13 @@ function App() {
   }, []);
 
   const handleConfirmAdd = (tag: TodoListItem | undefined) => {
-    //
-    tag;
+    setShowFloatMenu(false);
+
+    if (!tag) {
+      return;
+    }
+    console.log('tag', tag);
+    setTodoList((l) => [...l, tag]);
   };
 
   const handleCancelAdd = () => {
@@ -32,6 +38,7 @@ function App() {
 
   return (
     <div className="flex flex-col justify-start items-center tailwind/gray/50 container">
+      <ShadowMask />
       {todoList.map((item, index) => (
         <TodoItem
           id={item.id}
@@ -44,14 +51,14 @@ function App() {
       ))}
 
       {/* add todo list edit board */}
-      <FloatMenu
-        show={showFloatMenu}
-        onConfirm={handleConfirmAdd}
-        onCancel={handleCancelAdd}
-      />
+      {showFloatMenu && (
+        <FloatMenu onConfirm={handleConfirmAdd} onCancel={handleCancelAdd} />
+      )}
 
       {/* add todo item button */}
       {!showFloatMenu && <AddIcon onClick={handleAdd} />}
+
+      <ShadowMask position="bottom" />
     </div>
   );
 }
