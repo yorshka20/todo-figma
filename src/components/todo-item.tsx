@@ -55,6 +55,9 @@ function Component({
     };
 
     const handleMouseUp = () => {
+      // restore position
+      node.style.transform = `translateX(0px)`;
+
       node.removeEventListener('mousemove', handleMouseMove);
       node.removeEventListener('mouseup', handleMouseUp);
     };
