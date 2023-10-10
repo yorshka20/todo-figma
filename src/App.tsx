@@ -65,11 +65,13 @@ function App() {
     <div
       className={`flex flex-col justify-start items-center tailwind/gray/50 container`}
     >
+      {/* head shadow mask. another one is at bottom */}
       <ShadowMask />
 
       {/* `Daily Todo` title */}
       <img className="title-img" src={titleImg} />
 
+      {/* todo item list  */}
       <div className="todo-list flex flex-col w-full justify-start items-center">
         {todoList.map((item, index) => (
           <TodoItem

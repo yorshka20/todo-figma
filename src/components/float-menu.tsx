@@ -65,7 +65,7 @@ function Component({ onConfirm, onCancel }: Props) {
 
   return (
     <>
-      {/* forbidden scroll when float menu showed */}
+      {/* a grey shadow mask */}
       <div className="h-full w-full full-mask" />
       <div className="flex flex-col justify-start items-start self-center float-menu">
         <input

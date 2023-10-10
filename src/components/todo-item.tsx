@@ -57,7 +57,6 @@ function Component({
     const handleMouseUp = () => {
       // restore position
       node.style.transform = `translateX(0px)`;
-
       node.removeEventListener('mousemove', handleMouseMove);
       node.removeEventListener('mouseup', handleMouseUp);
     };
@@ -69,6 +68,8 @@ function Component({
     };
 
     const handleMouseLeave = () => {
+      // restore position
+      node.style.transform = `translateX(0px)`;
       node.removeEventListener('mousemove', handleMouseMove);
       node.removeEventListener('mouseup', handleMouseUp);
     };
@@ -92,11 +93,14 @@ function Component({
       <h2>{title}</h2>
       <p className="flex-1">{content}</p>
       <div className="flex flex-row flex-nowrap justify-start items-center tag-list">
+        {/* the first tag is `priority`. it will be a red one. */}
         <TagItem name={priority} className="priority" />
         {tags.map((tag, i) => (
           <TagItem name={tag} key={i} />
         ))}
       </div>
+
+      {/* show swap delete icons when focused */}
       {focused && (
         <>
           <img src={trashIcon} className="focused-icon trash" />
