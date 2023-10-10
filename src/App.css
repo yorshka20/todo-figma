@@ -7,6 +7,7 @@
 
 .container {
   position: relative;
+  min-width: 100vw;
   width: 100vw;
   height: 100vh;
 
@@ -35,7 +36,7 @@
     rgba(249, 250, 251, 0) 0%,
     #f9fafb 95.69%
   );
-  height: 80px;
+  height: 220px;
 
   pointer-events: none;
 
@@ -45,7 +46,7 @@
 .container .add-icon {
   position: fixed;
 
-  bottom: 20px;
+  bottom: 49px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -58,10 +59,13 @@
 }
 
 .todo-list {
-  overflow: hidden scroll;
-  height: calc(100vh - 39px - 45px - 87px);
+  overflow: hidden auto;
+  height: calc(100vh - 39px - 45px - 165px);
+}
 
-  border: 1px solid red;
+/* hide scrollbar  */
+.todo-list::-webkit-scrollbar {
+  display: none;
 }
 
 .todo-item {
@@ -81,15 +85,15 @@
   width: 489px;
   height: 238px;
   flex-shrink: 0;
+}
 
-  > p {
-    /* max 5 lines to show  */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-  }
+.todo-item.focused p {
+  /* max 5 lines to show  */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
 }
 
 .todo-item h2,
@@ -117,7 +121,7 @@
   overflow: hidden;
   color: var(--tailwind-gray-500, #6b7280);
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 
   /* text-base/medium */
   font-family: Inter;
@@ -174,26 +178,15 @@
   pointer-events: none;
 }
 
-.float-menu-container {
-  position: fixed;
-
-  background: var(--tailwind-white, #fff);
-
-  height: 330px;
-
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  z-index: 20;
-}
-
-.float-menu-container .float-menu {
+.float-menu {
   position: absolute;
+  bottom: 130px;
 
-  width: 98vw;
+  width: 455px;
+  height: 331px;
+  flex-shrink: 0;
 
-  padding: 20px;
+  padding: 40px 42px;
 
   border-radius: 8px;
   background: var(--tailwind-white, #fff);
@@ -210,18 +203,19 @@
 
   color: var(--tailwind-gray-500, #6b7280);
 
-  height: 35px;
+  height: 44px;
 
   border-radius: 4px;
   border: 1px solid var(--tailwind-gray-100, #f3f4f6);
 
   margin-bottom: 10px;
 
-  padding: 4px;
+  padding: 14px;
 }
 
 .float-menu textarea.content {
-  height: 60px;
+  width: 370px;
+  height: 70px;
 }
 
 .float-menu input.tag-input {
@@ -231,7 +225,7 @@
 .edit-icon-group {
   position: absolute;
 
-  bottom: -60px;
+  bottom: -85px;
   left: 50%;
   transform: translateX(-50%);
 

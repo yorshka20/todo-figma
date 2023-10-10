@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import './App.css';
-import titleImg from './assets/title.png';
+import titleImg from './assets/title.svg';
 import { AddIcon } from './components/add-icon';
 import { FloatMenu } from './components/float-menu';
 import { ShadowMask } from './components/shadow-mask';
