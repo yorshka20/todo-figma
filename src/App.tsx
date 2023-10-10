@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import './App.css';
-import addIcon from './assets/add.svg';
+import { AddIcon } from './components/add-icon';
 import { FloatMenu } from './components/float-menu';
-import { IconWrapper } from './components/icon-wrapper';
-import { TagItem } from './components/tag-item';
+import { TodoItem } from './components/todo-item';
 import type { TodoListItem } from './interface';
 import { mockData } from './mock';
 
@@ -18,9 +17,9 @@ function App() {
     setTodoList(mockData);
   }, []);
 
-  const handleAdd = () => {
+  const handleAdd = useCallback(() => {
     setShowFloatMenu(true);
-  };
+  }, []);
 
   const handleConfirmAdd = (tag: TodoListItem | undefined) => {
     //
@@ -34,30 +33,25 @@ function App() {
   return (
     <div className="flex flex-col justify-start items-center tailwind/gray/50 container">
       {todoList.map((item, index) => (
-        <div
+        <TodoItem
+          id={item.id}
           key={index}
-          className="flex flex-col justify-start items-start todo-item"
-        >
-          <h2>{item.title}</h2>
-          <p>{item.content}</p>
-          <div className="flex flex-row flex-nowrap justify-start items-center tag-list">
-            <TagItem name={item.priority} className="priority" />
-            {item.tags.map((tag, i) => (
-              <TagItem name={tag} key={i} />
-            ))}
-          </div>
-        </div>
+          title={item.title}
+          content={item.content}
+          priority={item.priority}
+          tags={item.tags}
+        />
       ))}
 
+      {/* add todo list edit board */}
       <FloatMenu
         show={showFloatMenu}
         onConfirm={handleConfirmAdd}
         onCancel={handleCancelAdd}
       />
 
-      {!showFloatMenu && (
-        <IconWrapper src={addIcon} className="add-icon" onClick={handleAdd} />
-      )}
+      {/* add todo item button */}
+      {!showFloatMenu && <AddIcon onClick={handleAdd} />}
     </div>
   );
 }
