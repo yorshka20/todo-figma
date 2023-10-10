@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import './App.css';
+import titleImg from './assets/title.png';
 import { AddIcon } from './components/add-icon';
 import { FloatMenu } from './components/float-menu';
 import { ShadowMask } from './components/shadow-mask';
@@ -12,6 +13,7 @@ function App() {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
 
   const [showFloatMenu, setShowFloatMenu] = useState(false);
+  const [focusedItem, setFocusedItem] = useState('');
 
   useEffect(() => {
     // fetch data
@@ -36,6 +38,10 @@ function App() {
     setShowFloatMenu(false);
   };
 
+  const handleClickItem = useCallback((id: string) => {
+    setFocusedItem(id);
+  }, []);
+
   return (
     <div
       className={`flex flex-col justify-start items-center tailwind/gray/50 container ${
@@ -43,16 +49,20 @@ function App() {
       }`}
     >
       <ShadowMask />
-      {todoList.map((item, index) => (
-        <TodoItem
-          id={item.id}
-          key={index}
-          title={item.title}
-          content={item.content}
-          priority={item.priority}
-          tags={item.tags}
-        />
-      ))}
+
+      {/* `Daily Todo` title */}
+      <img className="title-img" src={titleImg} />
+
+      <div className="todo-list flex flex-col w-full justify-start items-center">
+        {todoList.map((item, index) => (
+          <TodoItem
+            {...item}
+            focused={focusedItem === item.id}
+            key={index}
+            onClick={handleClickItem}
+          />
+        ))}
+      </div>
 
       {/* add todo list edit board */}
       {showFloatMenu && (
