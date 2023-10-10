@@ -30,6 +30,11 @@ function Component({ onConfirm, onCancel }: Props) {
   }, []);
 
   const handleConfirm = () => {
+    // submit is not allowed when either title nor content is empty
+    if (!item.title && !item.content) {
+      return;
+    }
+
     onConfirm({
       ...item,
       id: generateId(), // generate random string as id
@@ -38,7 +43,6 @@ function Component({ onConfirm, onCancel }: Props) {
   };
 
   const handleCancel = () => {
-    //
     onCancel();
   };
 
@@ -48,7 +52,7 @@ function Component({ onConfirm, onCancel }: Props) {
   ) => {
     const data = (item && { ...item }) || ({} as TodoListItem);
     const { value } = e.target;
-    console.log(value);
+    // console.log(value);
     if (type === 'tags') {
       const tags = value.split(',');
       data[type] = tags;
@@ -77,7 +81,7 @@ function Component({ onConfirm, onCancel }: Props) {
         <input
           onChange={(e) => handleContentChange('tags', e)}
           className="w-full tag-input"
-          placeholder="please input tags..."
+          placeholder="please input tags, tags are split by `,`"
         />
         <div className="flex flex-row justify-start items-center priority-buttons">
           {priorityList.map((p) => (

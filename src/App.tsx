@@ -17,8 +17,22 @@ function App() {
 
   useEffect(() => {
     // fetch data
+    const storage = localStorage.getItem('todo-list');
+    if (storage) {
+      setTodoList(JSON.parse(storage));
+      return;
+    }
+
     setTodoList(mockData);
   }, []);
+
+  useEffect(() => {
+    // console.log('list', todoList);
+    // save to local storage.
+    () => {
+      localStorage.setItem('todo-list', JSON.stringify(todoList));
+    };
+  }, [todoList]);
 
   const handleAdd = useCallback(() => {
     setShowFloatMenu(true);
@@ -30,7 +44,7 @@ function App() {
     if (!tag) {
       return;
     }
-    console.log('tag', tag);
+    // console.log('tag', tag);
     setTodoList((l) => [...l, tag]);
   };
 
@@ -43,7 +57,7 @@ function App() {
   }, []);
 
   const handleDeleteItem = useCallback((id: string) => {
-    console.log('delete', id);
+    // console.log('delete', id);
     setTodoList((l) => l.filter((i) => i.id !== id));
   }, []);
 
