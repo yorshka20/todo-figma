@@ -32,7 +32,7 @@ export const mockData: TodoListItem[] = Array.from({ length: 20 }).map(
     title: 'Lorem ipsum dolor',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    tags: getRandomTag(Math.round(Math.random() * 5)),
+    tags: [...new Set(getRandomTag(Math.round(Math.random() * 6)))], // deduplicate
     priority: `P${
       Math.round(Math.random() * 3) + 1
     }` as TodoListItem['priority'],

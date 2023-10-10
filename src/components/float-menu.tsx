@@ -55,7 +55,8 @@ function Component({ onConfirm, onCancel }: Props) {
     // console.log(value);
     if (type === 'tags') {
       const tags = value.split(',').filter(Boolean);
-      data[type] = tags;
+      // deduplicate tag
+      data[type] = [...new Set(tags)];
     } else {
       data[type] = value;
     }
