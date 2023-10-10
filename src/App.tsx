@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+
+import './App.css';
+import addIcon from './assets/add.svg';
+import { FloatMenu } from './components/float-menu';
+import { IconWrapper } from './components/icon-wrapper';
+import { TagItem } from './components/tag-item';
+import type { TodoListItem } from './interface';
+import { mockData } from './mock';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todoList, setTodoList] = useState<TodoListItem[]>([]);
+
+  const [showFloatMenu, setShowFloatMenu] = useState(false);
+
+  useEffect(() => {
+    // fetch data
+    setTodoList(mockData);
+  }, []);
+
+  const handleAdd = () => {
+    setShowFloatMenu(true);
+  };
+
+  const handleConfirmAdd = (tag: TodoListItem | undefined) => {
+    //
+    tag;
+  };
+
+  const handleCancelAdd = () => {
+    setShowFloatMenu(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="flex flex-col justify-start items-center tailwind/gray/50 container">
+      {todoList.map((item, index) => (
+        <div
+          key={index}
+          className="flex flex-col justify-start items-start todo-item"
+        >
+          <h2>{item.title}</h2>
+          <p>{item.content}</p>
+          <div className="flex flex-row flex-nowrap justify-start items-center tag-list">
+            <TagItem name={item.priority} className="priority" />
+            {item.tags.map((tag, i) => (
+              <TagItem name={tag} key={i} />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <FloatMenu
+        show={showFloatMenu}
+        onConfirm={handleConfirmAdd}
+        onCancel={handleCancelAdd}
+      />
+
+      {!showFloatMenu && (
+        <IconWrapper src={addIcon} className="add-icon" onClick={handleAdd} />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
