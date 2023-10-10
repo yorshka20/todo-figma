@@ -60,36 +60,40 @@ function Component({ onConfirm, onCancel }: Props) {
   };
 
   return (
-    <div className="flex flex-col w-full float-menu-container">
-      <div className="flex flex-col justify-start items-start self-center float-menu">
-        <input
-          onChange={(e) => handleContentChange('title', e)}
-          className="w-full title"
-          placeholder="please input title..."
-        />
-        <textarea
-          onChange={(e) => handleContentChange('content', e)}
-          className="w-full content"
-          placeholder="please input content..."
-        />
-        <input
-          onChange={(e) => handleContentChange('tags', e)}
-          className="w-full tag-input"
-          placeholder="please input tags..."
-        />
-        <div className="flex flex-row justify-start items-center priority-buttons">
-          {priorityList.map((p) => (
-            <PriorityButton
-              id={p}
-              key={p}
-              selected={p === activePriority}
-              onClick={handleClickPriority}
-            />
-          ))}
+    <>
+      {/* forbidden scroll when float menu showed */}
+      <div className="h-full w-full full-mask" />
+      <div className="flex flex-col w-full float-menu-container">
+        <div className="flex flex-col justify-start items-start self-center float-menu">
+          <input
+            onChange={(e) => handleContentChange('title', e)}
+            className="w-full title"
+            placeholder="please input title..."
+          />
+          <textarea
+            onChange={(e) => handleContentChange('content', e)}
+            className="w-full content"
+            placeholder="please input content..."
+          />
+          <input
+            onChange={(e) => handleContentChange('tags', e)}
+            className="w-full tag-input"
+            placeholder="please input tags..."
+          />
+          <div className="flex flex-row justify-start items-center priority-buttons">
+            {priorityList.map((p) => (
+              <PriorityButton
+                id={p}
+                key={p}
+                selected={p === activePriority}
+                onClick={handleClickPriority}
+              />
+            ))}
+          </div>
+          <EditIconGroup onCancel={handleCancel} onConfirm={handleConfirm} />
         </div>
-        <EditIconGroup onCancel={handleCancel} onConfirm={handleConfirm} />
       </div>
-    </div>
+    </>
   );
 }
 
