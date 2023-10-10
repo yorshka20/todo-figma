@@ -38,7 +38,7 @@ function Component({ onConfirm, onCancel }: Props) {
     onConfirm({
       ...item,
       id: generateId(), // generate random string as id
-      priority: `P${activePriority}` as TodoListItem['priority'],
+      priority: `P${activePriority ?? 4}` as TodoListItem['priority'], // default is p4
     });
   };
 
