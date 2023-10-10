@@ -36,7 +36,7 @@ function Component({ onConfirm, onCancel, show }: Props) {
     type: string,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    console.log(e);
+    console.log(e.target.value);
     switch (type) {
       case 'input':
         break;
@@ -56,7 +56,7 @@ function Component({ onConfirm, onCancel, show }: Props) {
 
   return (
     <div className="flex flex-col w-full float-menu-container">
-      <div className="flex flex-col justify-start items-center w-full float-menu">
+      <div className="flex flex-col justify-start items-start self-center float-menu">
         <input
           onChange={(e) => handleContentChange('title', e)}
           className="w-full title"
@@ -79,8 +79,8 @@ function Component({ onConfirm, onCancel, show }: Props) {
             />
           ))}
         </div>
+        <EditIconGroup onCancel={handleCancel} onConfirm={handleConfirm} />
       </div>
-      <EditIconGroup onCancel={handleCancel} onConfirm={handleConfirm} />
     </div>
   );
 }
