@@ -22,11 +22,6 @@
   overflow: hidden;
 }
 
-.container.scroll-forbidden {
-  overflow: hidden;
-  height: 100vh;
-}
-
 .container .shadow-mask {
   position: fixed;
   left: 0;
@@ -153,6 +148,11 @@
 }
 .focused-icon.done {
   right: calc(220px + 65px + 40px - 50vw);
+}
+
+.tag-list {
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .tag-list .tag-item.priority {

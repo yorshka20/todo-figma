@@ -38,7 +38,7 @@ function Component({ onConfirm, onCancel }: Props) {
     onConfirm({
       ...item,
       id: generateId(), // generate random string as id
-      priority: `P${activePriority ?? 4}` as TodoListItem['priority'], // default is p4
+      priority: `P${activePriority || 4}` as TodoListItem['priority'], // default is p4
     });
   };
 
@@ -54,7 +54,7 @@ function Component({ onConfirm, onCancel }: Props) {
     const { value } = e.target;
     // console.log(value);
     if (type === 'tags') {
-      const tags = value.split(',');
+      const tags = value.split(',').filter(Boolean);
       data[type] = tags;
     } else {
       data[type] = value;

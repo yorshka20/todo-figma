@@ -63,9 +63,7 @@ function App() {
 
   return (
     <div
-      className={`flex flex-col justify-start items-center tailwind/gray/50 container ${
-        showFloatMenu ? 'scroll-forbidden' : ''
-      }`}
+      className={`flex flex-col justify-start items-center tailwind/gray/50 container`}
     >
       <ShadowMask />
 
